@@ -5,7 +5,7 @@
     version="1.0.0" 
     provider-name="haribertlondon">
   <requires>
-    <import addon="xbmc.python" version="2.25.0"/>
+    <import addon="xbmc.python" version="2.19.0"/>
     <import addon="script.module.pil"/>        
   </requires>
   <extension point="xbmc.python.pluginsource" library="addon.py">
@@ -17,11 +17,11 @@
     <disclaimer lang="en_GB"></disclaimer>
     <language>en</language> <!-- the language of the videos the plugin provides, may be left blank -->
     <platform>all</platform>
-    <license>GPL-2.0</license>
+    <license>GPL-3.0</license>
     <forum>https://forum.kodi.tv/showthread.php?tid=xxxx</forum> <!-- may be left blank  -->
-    <website>http://myplugin.com</website> <!-- the url of the website that contains the videos (or the official website of your plugin).  -->
+    <website>https://github.com/haribertlondon/plugin.video.graphytv</website> 
     <email>you@youremail.com</email> <!-- may be left blank  -->
-    <source>http://github.com/you/plugin.addon.id</source>
+    <source>https://github.com/haribertlondon/plugin.video.graphytv</source>
     <news>v1.0.0 (18/02/2019)
       [new] first implementation      
     </news>
