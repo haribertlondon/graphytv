@@ -48,7 +48,8 @@ rad = w/40
 
  
 pluginPath = xbmc.translatePath( xbmcaddon.Addon().getAddonInfo('profile') ).decode("utf-8")
-
+addonPath = xbmcaddon.Addon().getAddonInfo('path')
+xbmc.log(pluginPath + addonPath)
 #create working path
 try:
     os.mkdir(pluginPath)
@@ -72,10 +73,15 @@ for item in json_result:
     draw = ImageDraw.Draw(img)
     y = getHeight(item["rating"], h, rad)
     draw.line([0, y, w, y])
-    try:
-        font = ImageFont.truetype("arial.ttf", 15)
+    try:        
+        font = ImageFont.truetype(os.path.join(addonPath,"FreeMono.ttf"), 15)
     except:
+        
+        #try:
+        #    font = ImageFont.truetype("arial.ttf", 15)
+        #except:
         font = None
+        
     
     for ii in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
         y = getHeight(ii, h, rad)
@@ -87,16 +93,21 @@ for item in json_result:
     except Exception as e:
         xbmc.log("GraphyTVError: "+str(e))
         lst = []
-        
+    lastSeason = 0
     if len(lst)>1:
         for idx,episode in enumerate(lst):
             season = episode["season"]
             episodenumber = episode["episode"]
             rating = episode["rating"]        
-            xbmc.log("-->"+str(season)+"."+str(episodenumber)+": "+str(rating),level=xbmc.LOGWARNING)
-            x = rad+idx*(float(w)-2*rad)/(len(lst)-1)                                            
-            y = getHeight(rating, h, rad)                                                 
-            draw.ellipse((x-rad, y-rad, x+rad, y+rad), fill=cc[int(season) % len(cc)]) #image.setPenColor( cc[season % len(cc)] )                    
+            #xbmc.log("-->"+str(season)+"."+str(episodenumber)+": "+str(rating),level=xbmc.LOGWARNING)
+            x = rad+idx*(float(w)-2*rad)/(len(lst)-1)   
+            y = getHeight(rating, h, rad)
+            draw.ellipse((x-rad, y-rad, x+rad, y+rad), fill=cc[int(season) % len(cc)]) #image.setPenColor( cc[season % len(cc)] )
+            if lastSeason != season and idx != 0:
+                draw.line([x-rad, 0, x-rad, h], (200-50, 174-50, 126-50))
+            
+            lastSeason = season
+                    
     try:    
         os.remove(filename)
     except Exception as e:
