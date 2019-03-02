@@ -1,12 +1,11 @@
 Upload Github
 Eigenes Icon
 Kompatibilität Kodi 16
-
-
 Schriftart
 Install-Package
+Vertikale Linien für Seasons
+
 Code Aufräumen
 Progress-Bar
 Großes Bild anzeigen wenn draufgeklickt
 Andere Farben?
-Vertikale Linien für Seasons
