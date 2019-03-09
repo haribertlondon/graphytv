@@ -127,8 +127,8 @@ for item in json_result:
         except:
             title = "Unknown Title" 
 
-    try:
-        li = xbmcgui.ListItem(label = str(title)+" ("+str(round(item["rating"], 1))+")", iconImage=filename, thumbnailImage=filename, offscreen=True)
+    try:        
+        li = xbmcgui.ListItem(label = str(title)+" ("+str(round(item["rating"], 1))+")", iconImage=filename, thumbnailImage=filename)
         li.setArt({ 'thumb': filename, 'poster' : filename, 'banner': filename, 'fanart' : filename, 'clearart': filename, 'landscape' : filename, 'icon' : filename })
         #li = xbmcgui.Listitem.setArt({ 'poster': 'poster.png', 'banner' : 'banner.png' })    
         xbmcplugin.addDirectoryItem(handle=addon_handle, url=filename, listitem=li)
