@@ -51,12 +51,14 @@ pluginPath = xbmc.translatePath( xbmcaddon.Addon().getAddonInfo('profile') ).dec
 addonPath = xbmcaddon.Addon().getAddonInfo('path')
 xbmc.log(pluginPath + addonPath)
 #create working path
+xbmc.log("Create working path: "+pluginPath,level=xbmc.LOGWARNING)
 try:
     os.mkdir(pluginPath)
 except:
-    pass
+    xbmc.log("Failed to create path: "+pluginPath,level=xbmc.LOGWARNING)
 
 #delete old files
+xbmc.log("Remove all files in "+pluginPath,level=xbmc.LOGWARNING)
 files = os.listdir(pluginPath)
 for file in files:
     if file.endswith(".png"):
@@ -64,35 +66,41 @@ for file in files:
 
 json_result = json.loads(rpc_result)
 json_result = json_result["result"]["tvshows"]
-for item in json_result:
-    
-        
+
+for item in json_result:        
     filename = pluginPath+'graphytv_id'+str(item["tvshowid"])+'_rand'+str(random.randint(1,10001))+'.png'
-    xbmc.log("-->"+str(filename),level=xbmc.LOGWARNING)
+    xbmc.log("Create File: "+str(filename),level=xbmc.LOGWARNING)
     img = Image.new('RGB', (w, h), color = (200, 174, 126))
     draw = ImageDraw.Draw(img)
     y = getHeight(item["rating"], h, rad)
     draw.line([0, y, w, y])
-    try:        
-        font = ImageFont.truetype(os.path.join(addonPath,"FreeMono.ttf"), 15)
-    except:
-        
-        #try:
-        #    font = ImageFont.truetype("arial.ttf", 15)
-        #except:
-        font = None
-        
     
+    fontFilename = os.path.join(addonPath,"FreeMono.ttf")
+    try:                
+        font = ImageFont.truetype(fontFilename, 15)        
+    except:        
+        xbmc.log("Failed to find font in "+fontFilename,level=xbmc.LOGWARNING)
+        try:
+            font = ImageFont.truetype("arial.ttf", 15)
+            xbmc.log("Using font arial.ttf",level=xbmc.LOGWARNING)
+        except:
+            xbmc.log("Using fallback font",level=xbmc.LOGWARNING)
+            font = None
+    
+    #draw horizontal lines
     for ii in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
         y = getHeight(ii, h, rad)
         draw.line([0, y, w, y], (0,0,0))
         draw.text([0,y], str(ii), font=font, fill = (0,0,0)) 
     
+    #get all episodes
     try:    
         lst = get_episodes(item["tvshowid"])
     except Exception as e:
-        xbmc.log("GraphyTVError: "+str(e))
+        xbmc.log("GraphyTVError: Did not get episodes: "+str(e),level=xbmc.LOGWARNING)
         lst = []
+    
+    #create image
     lastSeason = 0
     if len(lst)>1:
         for idx,episode in enumerate(lst):
@@ -107,11 +115,7 @@ for item in json_result:
                 draw.line([x-rad, 0, x-rad, h], (200-50, 174-50, 126-50))
             
             lastSeason = season
-                    
-    try:    
-        os.remove(filename)
-    except Exception as e:
-        xbmc.log("GraphyTVError: "+str(e)) 
+                        
     img.save(filename)
 
     
