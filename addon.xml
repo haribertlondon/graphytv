@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon 
     id="plugin.video.graphytv" 
-    name="GrapthyTV" 
-    version="1.0.0" 
+    name="GraphyTV" 
+    version="1.0.1" 
     provider-name="haribertlondon">
   <requires>
     <import addon="xbmc.python" version="2.19.0"/>
@@ -12,15 +12,15 @@
     <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en_GB">Your add-on's summary</summary>
-    <description lang="en_GB">Your add-on's description</description>
+    <summary lang="en_GB">Rating graph of all episodes in the library</summary>
+    <description lang="en_GB">Rating graph of all episodes in the library</description>
     <disclaimer lang="en_GB"></disclaimer>
     <language>en</language> <!-- the language of the videos the plugin provides, may be left blank -->
     <platform>all</platform>
     <license>GPL-3.0</license>
     <forum>https://forum.kodi.tv/showthread.php?tid=xxxx</forum> <!-- may be left blank  -->
     <website>https://github.com/haribertlondon/plugin.video.graphytv</website> 
-    <email>you@youremail.com</email> <!-- may be left blank  -->
+    <email></email> <!-- may be left blank  -->
     <source>https://github.com/haribertlondon/plugin.video.graphytv</source>
     <news>v1.0.0 (18/02/2019)
       [new] first implementation      
