@@ -34,7 +34,8 @@ query = {
             "jsonrpc": "2.0",
             "method": "VideoLibrary.GetTVShows",
             "params": {
-                "properties": ["title", "genre", "rating"]
+                "properties": ["title", "genre", "rating", "art"],
+                "sort": { "order": "ascending", "method": "label" }
             },
             "id": "libTvShows"
         }
@@ -72,6 +73,14 @@ for item in json_result:
     xbmc.log("Create File: "+str(filename),level=xbmc.LOGWARNING)
     img = Image.new('RGB', (w, h), color = (200, 174, 126))
     draw = ImageDraw.Draw(img)
+    
+    #xbmc.log("Thumbnail "+str(item["art"]),level=xbmc.LOGWARNING)
+    #background = Image.open(item["art"], 'r')
+    #img_w, img_h = img.size    
+    #offset = ((w - img_w) // 2, (h - img_h) // 2)
+    #img.paste(background, offset)    
+    
+    #mean rating
     y = getHeight(item["rating"], h, rad)
     draw.line([0, y, w, y])
     
